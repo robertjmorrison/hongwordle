@@ -9,6 +9,7 @@
     <title>Hongwordle!?</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sticky-footer/">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     
 
@@ -63,8 +64,6 @@
     </header>
   </div>
 
-
-  
   <!-- <div class="modal modal-sheet position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSheet">
     <div class="modal-dialog" role="document">
       <div class="modal-content rounded-6 shadow">
@@ -91,16 +90,57 @@
   </div>
 </main>
 
+<!-- keyboard-->
+<div class="keyboard">
+  <div class="keyboard_keys">
+    <button type="button" class="keyboard_key">Q</button>
+    <button type="button" class="keyboard_key">W</button>
+    <button type="button" class="keyboard_key">E</button>
+    <button type="button" class="keyboard_key">R</button>
+    <button type="button" class="keyboard_key">T</button>
+    <button type="button" class="keyboard_key">Y</button>
+    <button type="button" class="keyboard_key">U</button>
+    <button type="button" class="keyboard_key">I</button>
+    <button type="button" class="keyboard_key">O</button>
+    <button type="button" class="keyboard_key">P</button>
+    <br>
+    <button type="button" class="keyboard_key">A</button>
+    <button type="button" class="keyboard_key">S</button>
+    <button type="button" class="keyboard_key">D</button>
+    <button type="button" class="keyboard_key">F</button>
+    <button type="button" class="keyboard_key">G</button>
+    <button type="button" class="keyboard_key">H</button>
+    <button type="button" class="keyboard_key">J</button>
+    <button type="button" class="keyboard_key">K</button>
+    <button type="button" class="keyboard_key">L</button>
+    <br>
+    <button type="button" class="keyboard_key">
+      <i class="material-icons">backspace</i>
+    </button>
+    <button type="button" class="keyboard_key">Z</button>
+    <button type="button" class="keyboard_key">X</button>
+    <button type="button" class="keyboard_key">C</button>
+    <button type="button" class="keyboard_key">V</button>
+    <button type="button" class="keyboard_key">B</button>
+    <button type="button" class="keyboard_key">N</button>
+    <button type="button" class="keyboard_key">M</button>
+    <button type="button" class="keyboard_key">
+      <i class="material-icons">check</i>
+    </button>
+  </div>
+</div>
+
+<!-- board-->
+<div id="game-board"></div>
+
 <script src="./words.js"></script>
 <script src="./app.js"></script>
+<script src="keyboard.js"></script>
 
 <footer class="footer mt-auto py-3 bg-light">
   <div class="container">
     <span class="text-muted">2022</span>
   </div>
 </footer>
-
-
-    
   </body>
 </html>
