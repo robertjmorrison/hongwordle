@@ -12,9 +12,14 @@ function getRandomIntInclusive(min, max) {
   }
 
 
-const LENGTH = words.length 
-var random_index = getRandomIntInclusive(0,LENGTH); 
-console.log(words[random_index]);
+function generateNew(){
+    const LENGTH = words.length;
+    var randomIndex = getRandomIntInclusive(0,LENGTH); 
+    var rightGuessString = words[randomIndex];
+    return rightGuessString;
+}
+
+
 // rightGuessString needs to be assigned from this random word generator //
 
 // Board // 
@@ -110,3 +115,72 @@ function checkGuess () {
     }
 }
 }
+
+// Function for validating the guess is a 5-letter word form the wordbank
+function validateGuess(guessString){
+    if (words.includes(guessString)){
+        console.log("In wordbank");
+    } else {
+        console.log("NOT in wordbank");
+    }
+}
+
+// Get the UTC Time (Coordinated Universal Time)
+// BJT = UCT + 8 
+function getTime(){
+    const d = new Date();
+    let date = d.getDate();
+    let hours = d.getUTCHours();
+    let minutes = d.getUTCMinutes();
+
+    console.log("UTC Date: " + date);
+    console.log("UTC Hours: " + hours);
+    console.log("UTC Minutes: " + minutes);
+
+    return [date, hours, minutes]
+}
+
+
+// Uncomment this line below to clear local storage during testing 
+// localStorage.clear();
+
+// Generate a new word every day according to UTC 
+function generateNewDaily(){
+    let UTC = getTime();
+    let date = UTC[0];
+
+    if(typeof(Storage) !== "undefined") {
+        if (localStorage.length == 0) {
+            console.log("No pervious word history")
+            let rightGuessString = generateNew();
+            localStorage.setItem(rightGuessString, date);
+            document.getElementById("renew").innerHTML = localStorage.getItem(rightGuessString);
+            console.log("The first word is generated: ")
+            var key = localStorage.key(i);
+            var value = localStorage.getItem(key);
+            console.log('Answer: ' + key + ', Date: ' + value);  
+        } else {
+            console.log("All pervious used word and date: ")
+            for (var i = 0; i < localStorage.length; i++) {
+                var key = localStorage.key(i);
+                var value = localStorage.getItem(key);
+                console.log('Answer: ' + key + ', Date: ' + value);  
+            }  
+            if (date == localStorage.getItem(key)){
+                console.log("No need to generate a new word");
+                console.log("Current Answer: " + key)
+            } else {
+                rightGuessString = generateNew();
+                localStorage.setItem(rightGuessString, date);
+                document.getElementById("renew").innerHTML = localStorage.getItem(rightGuessString);
+            }
+        }
+    } else {
+        // some web browser does not support local storage
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage.";
+    }
+}
+
+generateNewDaily()
+
+  
