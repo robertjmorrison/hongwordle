@@ -15,6 +15,7 @@ function getRandomIntInclusive(min, max) {
 const LENGTH = words.length 
 var random_index = getRandomIntInclusive(0,LENGTH); 
 console.log(words[random_index]);
+// rightGuessString needs to be assigned from this random word generator //
 
 // Board // 
 function initBoard() {
@@ -87,4 +88,25 @@ function deleteLetter () {
     nextLetter -= 1
 }
 
-// Function for 
+// Function for entering word // 
+function checkGuess () {
+    for (let i = 0; i < 5; i++) {
+        let box = row.children[i]
+        let letter = currentGuess[i]
+
+    if (guessString === rightGuessString) {
+        alert("You guessed right! Game over!")
+        guessesRemaining = 0
+        return
+    } else {
+        guessesRemaining -= 1;
+        currentGuess = [];
+        nextLetter = 0;
+
+        if (guessesRemaining === 0) {
+            alert("You've run out of guesses! Game over!")
+            alert(`The right word was: "${rightGuessString}"`)
+        }
+    }
+}
+}
