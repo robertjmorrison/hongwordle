@@ -19,9 +19,6 @@ function generateNew(){
     return rightGuessString;
 }
 
-
-// rightGuessString needs to be assigned from this random word generator //
-
 // Board // 
 function initBoard() {
   let board = document.getElementById("game-board");
@@ -94,16 +91,21 @@ function deleteLetter () {
 }
 
 // Function for entering word // 
-function checkGuess () {
-    for (let i = 0; i < 5; i++) {
-        let box = row.children[i]
-        let letter = currentGuess[i]
+function checkGuess() {
+    let row = document.getElementsByClassName("tile-row")[6 - guessesRemaining]
+    let guessString = ''
+    let rightGuessString = generateNew();
+    
+    for (const val of currentGuess) {
+        guessString += val
+    }
 
     if (guessString === rightGuessString) {
         alert("You guessed right! Game over!")
         guessesRemaining = 0
         return
     } else {
+        alert("Incorrect! Try again.")
         guessesRemaining -= 1;
         currentGuess = [];
         nextLetter = 0;
@@ -113,7 +115,6 @@ function checkGuess () {
             alert(`The right word was: "${rightGuessString}"`)
         }
     }
-}
 }
 
 // Function for validating the guess is a 5-letter word form the wordbank
@@ -160,7 +161,7 @@ function generateNewDaily(){
             var value = localStorage.getItem(key);
             console.log('Answer: ' + key + ', Date: ' + value);  
         } else {
-            console.log("All pervious used word and date: ")
+            console.log("All previous used word and date: ")
             for (var i = 0; i < localStorage.length; i++) {
                 var key = localStorage.key(i);
                 var value = localStorage.getItem(key);
@@ -182,5 +183,3 @@ function generateNewDaily(){
 }
 
 generateNewDaily()
-
-  
