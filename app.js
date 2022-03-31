@@ -16,6 +16,7 @@ function generateNew(){
     const LENGTH = words.length;
     var randomIndex = getRandomIntInclusive(0,LENGTH); 
     var rightGuessString = words[randomIndex];
+    console.log(rightGuessString)
     return rightGuessString;
 }
 
@@ -94,7 +95,7 @@ function deleteLetter () {
 function checkGuess() {
     let row = document.getElementsByClassName("tile-row")[6 - guessesRemaining]
     let guessString = ''
-    let rightGuessString = generateNew();
+    let rightGuessString = generateNewDaily();
     
     for (const val of currentGuess) {
         guessString += val
@@ -155,11 +156,11 @@ function generateNewDaily(){
             console.log("No pervious word history")
             let rightGuessString = generateNew();
             localStorage.setItem(rightGuessString, date);
-            document.getElementById("renew").innerHTML = localStorage.getItem(rightGuessString);
             console.log("The first word is generated: ")
             var key = localStorage.key(i);
             var value = localStorage.getItem(key);
-            console.log('Answer: ' + key + ', Date: ' + value);  
+            console.log('Answer: ' + key + ', Date: ' + value); 
+            return key;
         } else {
             console.log("All previous used word and date: ")
             for (var i = 0; i < localStorage.length; i++) {
@@ -170,10 +171,11 @@ function generateNewDaily(){
             if (date == localStorage.getItem(key)){
                 console.log("No need to generate a new word");
                 console.log("Current Answer: " + key)
+                return key; 
             } else {
                 rightGuessString = generateNew();
                 localStorage.setItem(rightGuessString, date);
-                document.getElementById("renew").innerHTML = localStorage.getItem(rightGuessString);
+                return key; 
             }
         }
     } else {
@@ -182,4 +184,3 @@ function generateNewDaily(){
     }
 }
 
-generateNewDaily()
