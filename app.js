@@ -101,7 +101,7 @@ function checkGuess() {
     }
 
     if (guessString === rightGuessString) {
-        toastr.success("You guessed right! Game over!")
+        alert("You guessed right! Game over!")
         guessesRemaining = 0
         return
     } else {
@@ -110,8 +110,8 @@ function checkGuess() {
         nextLetter = 0;
 
         if (guessesRemaining === 0) {
-            toastr.error("You've run out of guesses! Game over!")
-            toastr.info(`The right word was: "${rightGuessString}"`)
+            alert("You've run out of guesses! Game over!")
+            alert(`The right word was: "${rightGuessString}"`)
         }
     }
 }
