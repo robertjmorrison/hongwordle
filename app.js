@@ -94,7 +94,7 @@ function deleteLetter () {
 function checkGuess() {
     let row = document.getElementsByClassName("tile-row")[6 - guessesRemaining]
     let guessString = ''
-    let rightGuess = Array.from(rightGuessString)
+    let rightGuessString = generateNew();
     
     for (const val of currentGuess) {
         guessString += val
@@ -105,6 +105,7 @@ function checkGuess() {
         guessesRemaining = 0
         return
     } else {
+        alert("Incorrect! Try again.")
         guessesRemaining -= 1;
         currentGuess = [];
         nextLetter = 0;
