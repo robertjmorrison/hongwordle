@@ -16,7 +16,6 @@ function generateNew(){
     const LENGTH = words.length;
     var randomIndex = getRandomIntInclusive(0,LENGTH); 
     var rightGuessString = words[randomIndex];
-    console.log(rightGuessString)
     return rightGuessString;
 }
 
@@ -65,6 +64,19 @@ document.addEventListener("keyup", (e) => {
       insertLetter(pressedKey)
   }
 })
+
+// Virtual keyboard acting exactly as physcial keyborad 
+function virtualKeyInput(virtualKeyInput){
+    if (virtualKeyInput == "Enter"){
+        checkGuess();
+        return
+    } else if (virtualKeyInput === "Delete" && nextLetter !== 0){
+        deleteLetter();
+        return
+    } else{
+        insertLetter(virtualKeyInput)
+    }
+}
 
 // Inserting letters //
 function insertLetter (pressedKey) {
@@ -121,9 +133,10 @@ function checkGuess() {
 // Function for validating the guess is a 5-letter word form the wordbank
 function validateGuess(guessString){
     if (words.includes(guessString)){
-        console.log("In wordbank");
+        console.log("Vaild work in wordbank");
     } else {
-        console.log("NOT in wordbank");
+        console.log("Invalid input - NOT in wordbank");
+
     }
 }
 
@@ -135,9 +148,9 @@ function getTime(){
     let hours = d.getUTCHours();
     let minutes = d.getUTCMinutes();
 
-    console.log("UTC Date: " + date);
-    console.log("UTC Hours: " + hours);
-    console.log("UTC Minutes: " + minutes);
+    // console.log("UTC Date: " + date);
+    // console.log("UTC Hours: " + hours);
+    // console.log("UTC Minutes: " + minutes);
 
     return [date, hours, minutes]
 }
@@ -150,6 +163,7 @@ function getTime(){
 function generateNewDaily(){
     let UTC = getTime();
     let date = UTC[0];
+    console.log("--------------------------------")
 
     if(typeof(Storage) !== "undefined") {
         if (localStorage.length == 0) {
@@ -180,7 +194,7 @@ function generateNewDaily(){
         }
     } else {
         // some web browser does not support local storage
-        document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage.";
+        // document.getElementById("localStorageError").innerHTML = "Sorry, your browser does not support web storage.";
     }
 }
 
