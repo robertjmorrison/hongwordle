@@ -113,6 +113,7 @@ function checkGuess() {
         guessString += val
     }
 
+    guessString = guessString.toUpperCase()
     if (guessString === rightGuessString) {
         alert("You guessed right! Game over!")
         guessesRemaining = 0
