@@ -113,6 +113,11 @@ function checkGuess() {
         guessString += val
     }
 
+    if (guessString.length != 5) {
+        alert("Not enough letters!")
+        return
+    }
+
     guessString = guessString.toUpperCase()
     if (guessString === rightGuessString) {
         alert("You guessed right! Game over!")
