@@ -3,6 +3,41 @@ let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
 
+// keyboard status 
+// 0 represents unused letter 
+// 1 represents used but neither in the right position or correct letter 
+// 2 represents correct letter but wrong position 
+// 3 represents both correct letter and position 
+
+let keyboardStatus = {
+    'A' : 0,
+    'B' : 0,
+    'C' : 0,
+    'D' : 0,
+    'E' : 0,
+    'F' : 0,
+    'G' : 0,
+    'H' : 0,
+    'I' : 0,
+    'J' : 0,
+    'K' : 0,
+    'L' : 0,
+    'M' : 0,
+    'N' : 0,
+    'O' : 0,
+    'P' : 0,
+    'Q' : 0,
+    'R' : 0,
+    'S' : 0,
+    'T' : 0,
+    'U' : 0,
+    'V' : 0,
+    'W' : 0,
+    'X' : 0,
+    'Y' : 0,
+    'Z' : 0
+}
+console.log(keyboardStatus);
 // Generate a word from five letter wordbank 
 
 function getRandomIntInclusive(min, max) {
@@ -53,8 +88,11 @@ document.addEventListener("keyup", (e) => {
   }
 
   if (pressedKey === "Enter") {
-      checkGuess()
-      return
+    let arr = checkGuess();
+    guessString = arr[0]
+    rightGuessString = arr[1]
+    updateKeyStatus(guessString, rightGuessString, keyboardStatus);
+    return
   }
 
   let found = pressedKey.match(/[a-z]/gi)
@@ -68,7 +106,10 @@ document.addEventListener("keyup", (e) => {
 // Virtual keyboard acting exactly as physcial keyborad 
 function virtualKeyInput(virtualKeyInput){
     if (virtualKeyInput == "Enter"){
-        checkGuess();
+        let arr = checkGuess();
+        guessString = arr[0]
+        rightGuessString = arr[1]
+        updateKeyStatus(guessString, rightGuessString, keyboardStatus);
         return
     } else if (virtualKeyInput === "Delete" && nextLetter !== 0){
         deleteLetter();
@@ -76,7 +117,7 @@ function virtualKeyInput(virtualKeyInput){
     } else{
         insertLetter(virtualKeyInput)
     }
-}
+} 
 
 // Inserting letters //
 function insertLetter (pressedKey) {
@@ -129,6 +170,7 @@ function checkGuess() {
             alert(`The right word was: "${rightGuessString}"`)
         }
     }
+    return [guessString, rightGuessString]
 }
 
 // Function for validating the guess is a 5-letter word form the wordbank
@@ -197,5 +239,32 @@ function generateNewDaily(){
         // some web browser does not support local storage
         // document.getElementById("localStorageError").innerHTML = "Sorry, your browser does not support web storage.";
     }
+}
+
+function updateKeyStatus(currentGuess, rightGuessString, keyboardStatus){
+    for (let i = 0; i < currentGuess.length; i++) { 
+
+        // check if this letter is green -> 3 
+        if (currentGuess[i] == rightGuessString[i]) {
+            keyboardStatus[currentGuess[i]] = 3;
+
+        // check if this letter is yellow -> 2
+        } else if (linearSearch(currentGuess[i]) != -1){
+            keyboardStatus[currentGuess[i]] = 2;
+
+        // otherwise it is gray -> 1 
+        } else {
+            keyboardStatus[currentGuess[i]] = 1;
+        }
+      }
+      console.log(keyboardStatus)
+} 
+
+function linearSearch(arr, target){
+    let n = arr.length
+    for (let i = 0; i < n; i++)
+        if (arr[i] == target)
+            return i;
+    return -1;
 }
 
