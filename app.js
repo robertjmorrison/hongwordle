@@ -159,6 +159,11 @@ function checkGuess() {
         return
     }
 
+    if (!words.includes(guessString)) {
+        alert("Word not in wordbank!")
+        return
+    }
+
     guessString = guessString.toUpperCase()
     if (guessString === rightGuessString) {
         alert("You guessed right! Game over!")
@@ -176,16 +181,6 @@ function checkGuess() {
         }
     }
     return [guessString, rightGuessString]
-}
-
-// Function for validating the guess is a 5-letter word form the wordbank
-function validateGuess(guessString){
-    if (words.includes(guessString)){
-        console.log("Vaild work in wordbank");
-    } else {
-        console.log("Invalid input - NOT in wordbank");
-
-    }
 }
 
 // Get the UTC Time (Coordinated Universal Time)
