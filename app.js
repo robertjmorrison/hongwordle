@@ -159,16 +159,18 @@ function checkGuess() {
         return
     }
 
+    guessString = guessString.toUpperCase()
+
     if (!words.includes(guessString)) {
         alert("Word not in wordbank!")
         return
     }
 
-    guessString = guessString.toUpperCase()
     if (guessString === rightGuessString) {
         alert("You guessed right! Game over!")
         guessesRemaining = 0
         return
+
     } else {
         alert("Incorrect! Try again.")
         guessesRemaining -= 1;
