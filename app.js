@@ -128,6 +128,7 @@ function insertLetter (pressedKey) {
 
   let row = document.getElementsByClassName("tile-row")[6 - guessesRemaining]
   let box = row.children[nextLetter]
+  animateCSS(box, "pulse")
   box.textContent = pressedKey
   box.classList.add("filled-box")
   currentGuess.push(pressedKey)
@@ -148,7 +149,7 @@ function deleteLetter () {
 function checkGuess() {
     let row = document.getElementsByClassName("tile-row")[6 - guessesRemaining]
     let guessString = ''
-    let rightGuessString = generateNewDaily();
+    let rightGuessString = generateNewDaily()
     
     for (const val of currentGuess) {
         guessString += val
@@ -184,6 +185,24 @@ function checkGuess() {
     }
     return [guessString, rightGuessString]
 }
+
+// Animation template from Animate CSS homepage
+const animateCSS = (element, animation, prefix = 'animate__') =>
+  new Promise((resolve, reject) => {
+    const animationName = `${prefix}${animation}`;
+    const node = element
+    node.style.setProperty('--animate-duration', '0.3s');
+    
+    node.classList.add(`${prefix}animated`, animationName);
+
+    function handleAnimationEnd(event) {
+      event.stopPropagation();
+      node.classList.remove(`${prefix}animated`, animationName);
+      resolve('Animation ended');
+    }
+
+    node.addEventListener('animationend', handleAnimationEnd, {once: true});
+});
 
 // Get the UTC Time (Coordinated Universal Time)
 // BJT = UCT + 8 
