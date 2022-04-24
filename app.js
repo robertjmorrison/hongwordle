@@ -139,6 +139,7 @@ function insertLetter (pressedKey) {
 function deleteLetter () {
     let row = document.getElementsByClassName("tile-row")[6 - guessesRemaining]
     let box = row.children[nextLetter - 1]
+    animateCSS(box, "pulse")
     box.textContent = ""
     box.classList.remove("filled-box")
     currentGuess.pop()
@@ -148,6 +149,7 @@ function deleteLetter () {
 // Function for entering word // 
 function checkGuess() {
     let row = document.getElementsByClassName("tile-row")[6 - guessesRemaining]
+    let box = row.children[nextLetter]
     let guessString = ''
     let rightGuessString = generateNewDaily()
     
@@ -164,7 +166,7 @@ function checkGuess() {
 
     if (!words.includes(guessString)) {
         alert("Word not in wordbank!")
-        return
+        return 
     }
 
     if (guessString === rightGuessString) {
