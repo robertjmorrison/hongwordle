@@ -88,10 +88,15 @@ document.addEventListener("keyup", (e) => {
   }
 
   if (pressedKey === "Enter") {
-    let arr = checkGuess();
-    guessString = arr[0]
-    rightGuessString = arr[1]
-    updateKeyStatus(guessString, rightGuessString, keyboardStatus);
+    let currentRow = document.getElementsByClassName("tile-row")[6 - guessesRemaining]
+    let arr = checkGuess()
+
+    if (arr === undefined) {
+    } else {
+        guessString = arr[0]
+        rightGuessString = arr[1]
+        updateKeyStatus(guessString, rightGuessString, keyboardStatus, currentRow);
+    }
     return
   }
 
@@ -106,11 +111,14 @@ document.addEventListener("keyup", (e) => {
 // Virtual keyboard acting exactly as physcial keyborad 
 function virtualKeyInput(virtualKeyInput){
     if (virtualKeyInput == "Enter"){
+        let currentRow = document.getElementsByClassName("tile-row")[6 - guessesRemaining]
         let arr = checkGuess();
-        guessString = arr[0]
-        rightGuessString = arr[1]
-        updateKeyStatus(guessString, rightGuessString, keyboardStatus);
-        return
+        if (arr === undefined) {
+        } else {
+            guessString = arr[0]
+            rightGuessString = arr[1]
+            updateKeyStatus(guessString, rightGuessString, keyboardStatus, currentRow);
+        } return 
     } else if (virtualKeyInput === "Delete" && nextLetter !== 0){
         deleteLetter();
         return
@@ -264,7 +272,8 @@ function generateNewDaily(){
     }
 }
 
-function updateKeyStatus(currentGuess, rightGuessString, keyboardStatus){
+function updateKeyStatus(currentGuess, rightGuessString, keyboardStatus, currentRow){
+    console.log(currentRow)
     for (let i = 0; i < currentGuess.length; i++) { 
 
         // check if this letter is green -> 3 
