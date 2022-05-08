@@ -37,7 +37,7 @@ let keyboardStatus = {
     'Y' : 0,
     'Z' : 0
 }
-console.log(keyboardStatus);
+
 // Generate a word from five letter wordbank 
 
 function getRandomIntInclusive(min, max) {
@@ -95,7 +95,8 @@ document.addEventListener("keyup", (e) => {
     } else {
         guessString = arr[0]
         rightGuessString = arr[1]
-        updateKeyStatus(guessString, rightGuessString, keyboardStatus, currentRow);
+        updateKeyStatus(guessString, rightGuessString, keyboardStatus);
+        keyboardColorFeedback(keyboardStatus, guessesRemaining, guessString);
     }
     return
   }
@@ -117,7 +118,8 @@ function virtualKeyInput(virtualKeyInput){
         } else {
             guessString = arr[0]
             rightGuessString = arr[1]
-            updateKeyStatus(guessString, rightGuessString, keyboardStatus, currentRow);
+            updateKeyStatus(guessString, rightGuessString, keyboardStatus);
+            keyboardColorFeedback(keyboardStatus, guessesRemaining, guessString);
         } return 
     } else if (virtualKeyInput === "Delete" && nextLetter !== 0){
         deleteLetter();
@@ -222,10 +224,6 @@ function getTime(){
     let hours = d.getUTCHours();
     let minutes = d.getUTCMinutes();
 
-    // console.log("UTC Date: " + date);
-    // console.log("UTC Hours: " + hours);
-    // console.log("UTC Minutes: " + minutes);
-
     return [date, hours, minutes]
 }
 
@@ -272,16 +270,18 @@ function generateNewDaily(){
     }
 }
 
-function updateKeyStatus(currentGuess, rightGuessString, keyboardStatus, currentRow){
-    console.log(currentRow)
+function updateKeyStatus(currentGuess, rightGuessString, keyboardStatus){
     for (let i = 0; i < currentGuess.length; i++) { 
+        console.log("guess" + currentGuess[i])
+        console.log("ans" + rightGuessString[i])
 
         // check if this letter is green -> 3 
         if (currentGuess[i] == rightGuessString[i]) {
             keyboardStatus[currentGuess[i]] = 3;
 
         // check if this letter is yellow -> 2
-        } else if (linearSearch(currentGuess[i]) != -1){
+        } else if (linearSearch(rightGuessString,currentGuess[i]) != -1){
+            
             keyboardStatus[currentGuess[i]] = 2;
 
         // otherwise it is gray -> 1 
@@ -289,7 +289,7 @@ function updateKeyStatus(currentGuess, rightGuessString, keyboardStatus, current
             keyboardStatus[currentGuess[i]] = 1;
         }
       }
-      console.log(keyboardStatus)
+      console.log(keyboardStatus);
 } 
 
 function linearSearch(arr, target){
@@ -300,3 +300,34 @@ function linearSearch(arr, target){
     return -1;
 }
 
+function keyboardColorFeedback (keyboardStatus, guessesRemaining, guessString) {
+    console.log("keyboardColorFeedback")
+    console.log(keyboardStatus)
+    var list = document.getElementsByClassName("letter-tile");
+    var temp = 6 - guessesRemaining
+    
+    for (let i = temp*5 - 5; i < temp*5; i++) {
+
+        if (i < 5) {
+            var letter = guessString[i]
+        } else {
+            x = i - (temp-1)*5
+            var letter = guessString[x]
+        }
+
+        if (keyboardStatus[letter] == 3) {
+            console.log("correct position and letter")
+            list[i].classList.replace("filled-box", "filled-box-green");
+        } else if (keyboardStatus[letter] == 2) {
+            console.log("not right position but used in word")
+            list[i].classList.replace("filled-box", "filled-box-yellow");
+        } else if (keyboardStatus[letter] == 1) {
+            console.log("not in word")
+            console.log("---")
+            list[i].classList.replace("filled-box", "filled-box-gray");
+        } 
+        
+    }
+    
+}
+    

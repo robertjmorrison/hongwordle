@@ -63,8 +63,25 @@
 }
 
 .filled-box {
+  color:black;
   border: 2px solid black;
 }
+
+.filled-box-green {
+  color:#ACEB69;
+  border: 2px solid black;
+}
+
+.filled-box-yellow {
+  color: #EBE960;
+  border: 2px solid black;
+}
+
+.filled-box-gray {
+  color:gray;
+  border: 2px solid black;
+}
+
 
 .tile-row {
   display: flex;
