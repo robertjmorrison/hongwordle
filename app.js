@@ -96,7 +96,7 @@ document.addEventListener("keyup", (e) => {
         guessString = arr[0]
         rightGuessString = arr[1]
         updateKeyStatus(guessString, rightGuessString, keyboardStatus);
-        keyboardColorFeedback(keyboardStatus, guessesRemaining, guessString);
+        colorFeedback(keyboardStatus, guessesRemaining, guessString);
     }
     return
   }
@@ -119,7 +119,7 @@ function virtualKeyInput(virtualKeyInput){
             guessString = arr[0]
             rightGuessString = arr[1]
             updateKeyStatus(guessString, rightGuessString, keyboardStatus);
-            keyboardColorFeedback(keyboardStatus, guessesRemaining, guessString);
+            colorFeedback(keyboardStatus, guessesRemaining, guessString);
         } return 
     } else if (virtualKeyInput === "Delete" && nextLetter !== 0){
         deleteLetter();
@@ -300,9 +300,10 @@ function linearSearch(arr, target){
     return -1;
 }
 
-function keyboardColorFeedback (keyboardStatus, guessesRemaining, guessString) {
-    console.log("keyboardColorFeedback")
-    console.log(keyboardStatus)
+function colorFeedback (keyboardStatus, guessesRemaining, guessString) {
+
+    console.log(keyboardStatus) 
+
     var list = document.getElementsByClassName("letter-tile");
     var temp = 6 - guessesRemaining
     
@@ -316,18 +317,41 @@ function keyboardColorFeedback (keyboardStatus, guessesRemaining, guessString) {
         }
 
         if (keyboardStatus[letter] == 3) {
-            console.log("correct position and letter")
             list[i].classList.replace("filled-box", "filled-box-green");
         } else if (keyboardStatus[letter] == 2) {
-            console.log("not right position but used in word")
             list[i].classList.replace("filled-box", "filled-box-yellow");
         } else if (keyboardStatus[letter] == 1) {
-            console.log("not in word")
-            console.log("---")
             list[i].classList.replace("filled-box", "filled-box-gray");
         } 
         
     }
-    
+
+    var buttons = document.querySelectorAll('button');
+    for (let k = 0; k < 5; k++){
+        var letter = guessString[k]
+        if (keyboardStatus[letter] == 3) {
+            console.log("correct position and letter")
+            for (var i=0, l=buttons.length; i<l; i++) {
+                if (buttons[i].firstChild.nodeValue == letter) {
+                    console.log(buttons[i])
+                    buttons[i].classList.replace("keyboard_key", "keyboard_key_green");  
+                }
+            } 
+        } else if (keyboardStatus[letter] == 2) {
+            console.log("not right position but used in word")
+            for (var i=0, l=buttons.length; i<l; i++) {
+                if (buttons[i].firstChild.nodeValue == letter) {
+                    buttons[i].classList.replace("keyboard_key", "keyboard_key_yellow");  
+                }
+            }
+        } else if (keyboardStatus[letter] == 1) {
+            console.log("not in word")
+            for (var i=0, l=buttons.length; i<l; i++) {
+                if (buttons[i].firstChild.nodeValue == letter) {
+                    buttons[i].classList.replace("keyboard_key", "keyboard_key_gray");  
+                }
+            }
+        }
+    }
 }
     
