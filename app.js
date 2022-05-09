@@ -48,9 +48,10 @@ function getRandomIntInclusive(min, max) {
 
 
 function generateNew(){
-    const LENGTH = words.length;
+    const LENGTH = wordbank.length;
     var randomIndex = getRandomIntInclusive(0,LENGTH); 
-    var rightGuessString = words[randomIndex];
+    var rightGuessString = wordbank[randomIndex];
+    // rightGuessString = rightGuessString.toUpperCase()
     return rightGuessString;
 }
 
@@ -172,9 +173,8 @@ function checkGuess() {
         return
     }
 
-    guessString = guessString.toUpperCase()
 
-    if (!words.includes(guessString)) {
+    if (!wordbank.includes(guessString)) {
         alert("Word not in wordbank!")
         return 
     }
@@ -185,7 +185,7 @@ function checkGuess() {
         return
 
     } else {
-        alert("Incorrect! Try again.")
+        // alert("Incorrect! Try again.")
         guessesRemaining -= 1;
         currentGuess = [];
         nextLetter = 0;
@@ -229,7 +229,7 @@ function getTime(){
 
 
 // Uncomment this line below to clear local storage during testing 
-// localStorage.clear();
+localStorage.clear();
 
 // Generate a new word every day according to UTC 
 function generateNewDaily(){
@@ -272,8 +272,6 @@ function generateNewDaily(){
 
 function updateKeyStatus(currentGuess, rightGuessString, keyboardStatus){
     for (let i = 0; i < currentGuess.length; i++) { 
-        console.log("guess" + currentGuess[i])
-        console.log("ans" + rightGuessString[i])
 
         // check if this letter is green -> 3 
         if (currentGuess[i] == rightGuessString[i]) {
@@ -330,22 +328,18 @@ function colorFeedback (keyboardStatus, guessesRemaining, guessString) {
     for (let k = 0; k < 5; k++){
         var letter = guessString[k]
         if (keyboardStatus[letter] == 3) {
-            console.log("correct position and letter")
             for (var i=0, l=buttons.length; i<l; i++) {
                 if (buttons[i].firstChild.nodeValue == letter) {
-                    console.log(buttons[i])
                     buttons[i].classList.replace("keyboard_key", "keyboard_key_green");  
                 }
             } 
         } else if (keyboardStatus[letter] == 2) {
-            console.log("not right position but used in word")
             for (var i=0, l=buttons.length; i<l; i++) {
                 if (buttons[i].firstChild.nodeValue == letter) {
                     buttons[i].classList.replace("keyboard_key", "keyboard_key_yellow");  
                 }
             }
         } else if (keyboardStatus[letter] == 1) {
-            console.log("not in word")
             for (var i=0, l=buttons.length; i<l; i++) {
                 if (buttons[i].firstChild.nodeValue == letter) {
                     buttons[i].classList.replace("keyboard_key", "keyboard_key_gray");  
