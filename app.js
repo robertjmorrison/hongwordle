@@ -173,6 +173,16 @@ function checkGuess() {
         return
     }
 
+    for (let i = 0; i < 5; i++) {
+        let letterColor = ''
+        let box = row.children[i]
+        let letter = currentGuess[i]
+
+        let delay = 250 * i
+        setTimeout(()=> {
+            animateCSS(box, "flipInX")
+        }, delay)
+    }
 
     if (!wordbank.includes(guessString)) {
         alert("Word not in wordbank!")
