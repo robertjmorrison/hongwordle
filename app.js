@@ -180,7 +180,7 @@ function checkGuess() {
 
         let delay = 250 * i
         setTimeout(()=> {
-            animateCSS(box, "flipInX")
+            animateCSS(box, "flipInY")
         }, delay)
     }
 
