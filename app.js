@@ -9,6 +9,8 @@ let nextLetter = 0;
 // 2 represents correct letter but wrong position 
 // 3 represents both correct letter and position 
 
+let rowStatus = [0,0,0,0,0]
+
 let keyboardStatus = {
     'A' : 0,
     'B' : 0,
@@ -48,9 +50,9 @@ function getRandomIntInclusive(min, max) {
 
 
 function generateNew(){
-    const LENGTH = wordbank.length;
+    const LENGTH = answerbank.length;
     var randomIndex = getRandomIntInclusive(0,LENGTH); 
-    var rightGuessString = wordbank[randomIndex];
+    var rightGuessString = answerbank[randomIndex];
     // rightGuessString = rightGuessString.toUpperCase()
     return rightGuessString;
 }
@@ -97,7 +99,9 @@ document.addEventListener("keyup", (e) => {
         guessString = arr[0]
         rightGuessString = arr[1]
         updateKeyStatus(guessString, rightGuessString, keyboardStatus);
-        colorFeedback(keyboardStatus, guessesRemaining, guessString);
+        updateRowStatus(guessString, rightGuessString, rowStatus);            
+        keyboardColorFeedback(keyboardStatus, guessString);
+        rowColorFeedback(rowStatus, guessesRemaining);
     }
     return
   }
@@ -119,8 +123,11 @@ function virtualKeyInput(virtualKeyInput){
         } else {
             guessString = arr[0]
             rightGuessString = arr[1]
+
             updateKeyStatus(guessString, rightGuessString, keyboardStatus);
-            colorFeedback(keyboardStatus, guessesRemaining, guessString);
+            updateRowStatus(guessString, rightGuessString, rowStatus);            
+            keyboardColorFeedback(keyboardStatus, guessString);
+            rowColorFeedback(rowStatus, guessesRemaining);
         } return 
     } else if (virtualKeyInput === "Delete" && nextLetter !== 0){
         deleteLetter();
@@ -163,6 +170,8 @@ function checkGuess() {
     let box = row.children[nextLetter]
     let guessString = ''
     let rightGuessString = generateNewDaily()
+    // let rightGuessString = "peaks"
+    // console.log("Correct answer is ser manually to " + rightGuessString.toUpperCase())
     
     for (const val of currentGuess) {
         guessString += val
@@ -190,8 +199,13 @@ function checkGuess() {
     }
 
     if (guessString === rightGuessString) {
-        alert("You guessed right! Game over!")
+        guessesRemaining -= 1
+        updateRowStatus(currentGuess, rightGuessString, rowStatus);
+        rowColorFeedback(rowStatus, guessesRemaining);
         guessesRemaining = 0
+        
+        // alert("You guessed right! Game over!")
+        console.log("-- GAME OVER --")
         return
 
     } else {
@@ -281,24 +295,34 @@ function generateNewDaily(){
 }
 
 function updateKeyStatus(currentGuess, rightGuessString, keyboardStatus){
+    currentGuess = currentGuess.toUpperCase()
+    rightGuessString = rightGuessString.toUpperCase()
     for (let i = 0; i < currentGuess.length; i++) { 
 
-        // check if this letter is green -> 3 
         if (currentGuess[i] == rightGuessString[i]) {
             keyboardStatus[currentGuess[i]] = 3;
-
-        // check if this letter is yellow -> 2
         } else if (linearSearch(rightGuessString,currentGuess[i]) != -1){
-            
             keyboardStatus[currentGuess[i]] = 2;
-
-        // otherwise it is gray -> 1 
         } else {
             keyboardStatus[currentGuess[i]] = 1;
         }
       }
       console.log(keyboardStatus);
 } 
+
+function updateRowStatus(currentGuess, rightGuessString, rowStatus){
+
+    for (let i = 0; i < currentGuess.length; i++) { 
+        if (currentGuess[i] == rightGuessString[i]) {
+            rowStatus[i] = 3
+        } else if (linearSearch(rightGuessString,currentGuess[i]) != -1){
+            rowStatus[i] = 2
+        } else {
+            rowStatus[i] = 1
+        }
+
+    }
+}
 
 function linearSearch(arr, target){
     let n = arr.length
@@ -308,31 +332,8 @@ function linearSearch(arr, target){
     return -1;
 }
 
-function colorFeedback (keyboardStatus, guessesRemaining, guessString) {
-
-    console.log(keyboardStatus) 
-
-    var list = document.getElementsByClassName("letter-tile");
-    var temp = 6 - guessesRemaining
-    
-    for (let i = temp*5 - 5; i < temp*5; i++) {
-
-        if (i < 5) {
-            var letter = guessString[i]
-        } else {
-            x = i - (temp-1)*5
-            var letter = guessString[x]
-        }
-
-        if (keyboardStatus[letter] == 3) {
-            list[i].classList.replace("filled-box", "filled-box-green");
-        } else if (keyboardStatus[letter] == 2) {
-            list[i].classList.replace("filled-box", "filled-box-yellow");
-        } else if (keyboardStatus[letter] == 1) {
-            list[i].classList.replace("filled-box", "filled-box-gray");
-        } 
-        
-    }
+function keyboardColorFeedback (keyboardStatus, guessString) {
+    guessString = guessString.toUpperCase()    
 
     var buttons = document.querySelectorAll('button');
     for (let k = 0; k < 5; k++){
@@ -359,3 +360,21 @@ function colorFeedback (keyboardStatus, guessesRemaining, guessString) {
     }
 }
     
+function rowColorFeedback (rowStatus, guessesRemaining) {
+
+    var list = document.getElementsByClassName("letter-tile");
+
+    var temp = 6 - guessesRemaining
+    let j = 0
+    for (let i = temp*5 - 5; i < temp*5; i++) {
+        if (rowStatus[j] == 3) {
+            list[i].classList.replace("filled-box", "filled-box-green");
+        } else if (rowStatus[j] == 2) {
+            list[i].classList.replace("filled-box", "filled-box-yellow");
+        } else if (rowStatus[j] == 1) {
+            list[i].classList.replace("filled-box", "filled-box-gray");
+        } 
+        j++;
+                
+    }
+}
