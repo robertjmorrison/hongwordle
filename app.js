@@ -180,6 +180,11 @@ function checkGuess() {
         return
     }
 
+    if (!wordbank.includes(guessString)) {
+        alert("Word not in wordbank!")
+        return 
+    }
+
     for (let i = 0; i < 5; i++) {
         let letterColor = ''
         let box = row.children[i]
@@ -187,16 +192,12 @@ function checkGuess() {
 
         let delay = 250 * i
         setTimeout(()=> {
-            animateCSS(box, "flipInY")
+            animateCSS(box, "bounce")
         }, delay)
     }
 
-    if (!wordbank.includes(guessString)) {
-        alert("Word not in wordbank!")
-        return 
-    }
-
     if (guessString === rightGuessString) {
+        alert("Congratulations, smarty pants!")
         guessesRemaining -= 1
         updateRowStatus(currentGuess, rightGuessString, rowStatus);
         rowColorFeedback(rowStatus, guessesRemaining);
@@ -205,7 +206,6 @@ function checkGuess() {
         keyboardColorFeedback (keyboardStatus, guessString);
         guessesRemaining = 0
         
-        // alert("You guessed right! Game over!")
         console.log("-- GAME OVER --")
         return
 
@@ -214,6 +214,17 @@ function checkGuess() {
         guessesRemaining -= 1;
         currentGuess = [];
         nextLetter = 0;
+
+        for (let i = 0; i < 5; i++) {
+            let letterColor = ''
+            let box = row.children[i]
+            let letter = currentGuess[i]
+    
+            let delay = 250 * i
+            setTimeout(()=> {
+                animateCSS(box, "flipInY")
+            }, delay)
+        }
 
         if (guessesRemaining === 0) {
             alert("You've run out of guesses! Game over!")
