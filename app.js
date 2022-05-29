@@ -170,9 +170,7 @@ function checkGuess() {
     let box = row.children[nextLetter]
     let guessString = ''
     let rightGuessString = generateNewDaily()
-    // let rightGuessString = "peaks"
-    // console.log("Correct answer is ser manually to " + rightGuessString.toUpperCase())
-    
+
     for (const val of currentGuess) {
         guessString += val
     }
@@ -202,6 +200,9 @@ function checkGuess() {
         guessesRemaining -= 1
         updateRowStatus(currentGuess, rightGuessString, rowStatus);
         rowColorFeedback(rowStatus, guessesRemaining);
+        console.log(currentGuess, rightGuessString, keyboardStatus)
+        updateKeyStatus(currentGuess, rightGuessString, keyboardStatus);
+        keyboardColorFeedback (keyboardStatus, guessString);
         guessesRemaining = 0
         
         // alert("You guessed right! Game over!")
@@ -302,7 +303,9 @@ function updateKeyStatus(currentGuess, rightGuessString, keyboardStatus){
         if (currentGuess[i] == rightGuessString[i]) {
             keyboardStatus[currentGuess[i]] = 3;
         } else if (linearSearch(rightGuessString,currentGuess[i]) != -1){
-            keyboardStatus[currentGuess[i]] = 2;
+            if (keyboardStatus[currentGuess[i]] != 3 ){
+                keyboardStatus[currentGuess[i]] = 2;
+            }
         } else {
             keyboardStatus[currentGuess[i]] = 1;
         }
@@ -342,6 +345,7 @@ function keyboardColorFeedback (keyboardStatus, guessString) {
             for (var i=0, l=buttons.length; i<l; i++) {
                 if (buttons[i].firstChild.nodeValue == letter) {
                     buttons[i].classList.replace("keyboard_key", "keyboard_key_green");  
+                    buttons[i].classList.replace("keyboard_key_yellow", "keyboard_key_green");  
                 }
             } 
         } else if (keyboardStatus[letter] == 2) {
