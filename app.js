@@ -199,11 +199,12 @@ function checkGuess() {
     if (guessString === rightGuessString) {
         alert("Congratulations, smarty pants!")
         guessesRemaining -= 1
-        updateRowStatus(currentGuess, rightGuessString, rowStatus);
+   
+
+        updateKeyStatus(guessString, rightGuessString, keyboardStatus);
+        updateRowStatus(guessString, rightGuessString, rowStatus);            
+        keyboardColorFeedback(keyboardStatus, guessString);
         rowColorFeedback(rowStatus, guessesRemaining);
-        console.log(currentGuess, rightGuessString, keyboardStatus)
-        updateKeyStatus(currentGuess, rightGuessString, keyboardStatus);
-        keyboardColorFeedback (keyboardStatus, guessString);
         guessesRemaining = 0
         
         console.log("-- GAME OVER --")
