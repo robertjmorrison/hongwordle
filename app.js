@@ -3,6 +3,12 @@ let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
 
+// Disable double tap zoom in on mobile 
+document.addEventListener("click", event => {
+    event.preventDefault()
+    event.stopPropagation()
+  })
+  
 // keyboard status 
 // 0 represents unused letter 
 // 1 represents used but neither in the right position or correct letter 
