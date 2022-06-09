@@ -49,7 +49,7 @@
   margin: 2px;
   border-radius: 4px;
   border: none;
-  background: #b5afbc;
+  background: #747474;
   color: white;
   font-size: 1.05rem;
   outline: none;
@@ -72,7 +72,7 @@
   border-radius: 4px;
   border: none;
   /* background: #EBE960; */
-  background: #cac8f4;
+  background: #8f5bff;
   color: white;
   font-size: 1.05rem;
   outline: none;
@@ -94,7 +94,7 @@
   margin: 2px;
   border-radius: 4px;
   border: none;
-  background:#a9def9;
+  background:#5bb0ff;
   color: white;
   font-size: 1.05rem;
   outline: none;
@@ -136,19 +136,19 @@
 
 .filled-box-green {
   /* color:#ACEB69; */
-  color: #a9def9;
-  border: 2px solid #a9def9;
+  color: #5bb0ff;
+  border: 2px solid #5bb0ff;
 }
 
 .filled-box-yellow {
   /* color: #EBE960; */
-  color: #cac8f4;
-  border: 2px solid #cac8f4;
+  color: #8f5bff;
+  border: 2px solid #8f5bff;
 }
 
 .filled-box-gray {
-  color:#b5afbc;
-  border: 2px solid #b5afbc;
+  color:#747474;
+  border: 2px solid #747474;
 }
 
 
