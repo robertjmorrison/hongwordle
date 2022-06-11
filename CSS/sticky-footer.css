@@ -41,7 +41,6 @@
   position: relative;
 }
 
-/* pale purple-ish gray */
 .keyboard_key_gray {
   height: 40px;
   width: 7.5%;
@@ -63,7 +62,7 @@
   position: relative;
 }
 
-/* pale purple  */
+/* purple  */
 .keyboard_key_yellow {
   height: 40px;
   width: 7.5%;
@@ -71,8 +70,8 @@
   margin: 2px;
   border-radius: 4px;
   border: none;
-  /* background: #EBE960; */
-  background: #8f5bff;
+  /* background: #8f5bff; */
+  background: #787FF6;
   color: white;
   font-size: 1.05rem;
   outline: none;
@@ -94,7 +93,8 @@
   margin: 2px;
   border-radius: 4px;
   border: none;
-  background:#5bb0ff;
+  /* background:#5bb0ff; */
+  background: #7BD5F5;
   color: white;
   font-size: 1.05rem;
   outline: none;
@@ -134,18 +134,23 @@
   border: 2px solid #cfcccc;
 }
 
+/* correct color */
 .filled-box-green {
-  /* color:#ACEB69; */
-  color: #5bb0ff;
-  border: 2px solid #5bb0ff;
+  /* color: #5bb0ff;
+  border: 2px solid #5bb0ff; */
+  color:  #7BD5F5;
+  border: 2px solid  #7BD5F5;
 }
 
+/* misplace color */
 .filled-box-yellow {
-  /* color: #EBE960; */
-  color: #8f5bff;
-  border: 2px solid #8f5bff;
+  /* color: #8f5bff;
+  border: 2px solid #8f5bff; */
+  color: #787FF6;
+  border: 2px solid #787FF6;
 }
 
+/* wrong color */
 .filled-box-gray {
   color:#747474;
   border: 2px solid #747474;
