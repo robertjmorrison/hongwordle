@@ -176,7 +176,8 @@ function checkGuess() {
     let row = document.getElementsByClassName("tile-row")[6 - guessesRemaining]
     let box = row.children[nextLetter]
     let guessString = ''
-    let rightGuessString = generateNewDaily()
+    // let rightGuessString = generateNewDaily()
+    let rightGuessString = "octal"
 
     for (const val of currentGuess) {
         guessString += val
@@ -335,6 +336,13 @@ function updateKeyStatus(currentGuess, rightGuessString, keyboardStatus){
 function updateRowStatus(currentGuess, rightGuessString, rowStatus){
     
     let usedStatus = [false, false, false, false, false]
+    
+    for (let i = 0; i < 5; i++) {
+        if (currentGuess[i] == rightGuessString[i]){
+            rowStatus[i] = 3;
+            usedStatus[i] = true;
+        }
+    }
 
     for (let i = 0; i < 5; i++) {
         var c = currentGuess[i];
@@ -352,12 +360,7 @@ function updateRowStatus(currentGuess, rightGuessString, rowStatus){
     }
     console.log(rowStatus)
 
-    for (let i = 0; i < 5; i++) {
-        if (currentGuess[i] == rightGuessString[i]){
-            rowStatus[i] = 3;
-            usedStatus[i] = true;
-        }
-    }
+    
 }
 
 function linearSearch(arr, target){
