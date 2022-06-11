@@ -176,8 +176,7 @@ function checkGuess() {
     let row = document.getElementsByClassName("tile-row")[6 - guessesRemaining]
     let box = row.children[nextLetter]
     let guessString = ''
-    // let rightGuessString = generateNewDaily()
-    let rightGuessString = "octal"
+    let rightGuessString = generateNewDaily()
 
     for (const val of currentGuess) {
         guessString += val
@@ -336,7 +335,7 @@ function updateKeyStatus(currentGuess, rightGuessString, keyboardStatus){
 function updateRowStatus(currentGuess, rightGuessString, rowStatus){
     
     let usedStatus = [false, false, false, false, false]
-    
+
     for (let i = 0; i < 5; i++) {
         if (currentGuess[i] == rightGuessString[i]){
             rowStatus[i] = 3;
