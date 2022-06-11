@@ -104,6 +104,7 @@ document.addEventListener("keyup", (e) => {
     } else {
         guessString = arr[0]
         rightGuessString = arr[1]
+        rowStatus = [0,0,0,0,0]
         updateKeyStatus(guessString, rightGuessString, keyboardStatus);
         updateRowStatus(guessString, rightGuessString, rowStatus);            
         keyboardColorFeedback(keyboardStatus, guessString);
@@ -129,7 +130,7 @@ function virtualKeyInput(virtualKeyInput){
         } else {
             guessString = arr[0]
             rightGuessString = arr[1]
-
+            rowStatus = [0,0,0,0,0]
             updateKeyStatus(guessString, rightGuessString, keyboardStatus);
             updateRowStatus(guessString, rightGuessString, rowStatus);            
             keyboardColorFeedback(keyboardStatus, guessString);
@@ -206,7 +207,7 @@ function checkGuess() {
         alert("Congratulations, smarty pants!")
         guessesRemaining -= 1
    
-
+        rowStatus = [0,0,0,0,0]
         updateKeyStatus(guessString, rightGuessString, keyboardStatus);
         updateRowStatus(guessString, rightGuessString, rowStatus);            
         keyboardColorFeedback(keyboardStatus, guessString);
