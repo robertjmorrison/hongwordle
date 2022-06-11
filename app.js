@@ -337,14 +337,6 @@ function updateRowStatus(currentGuess, rightGuessString, rowStatus){
     let usedStatus = [false, false, false, false, false]
 
     for (let i = 0; i < 5; i++) {
-        if (currentGuess[i] == rightGuessString[i]){
-            rowStatus[i] = 3;
-            usedStatus[i] = true;
-        }
-    }
-    
-
-    for (let i = 0; i < 5; i++) {
         var c = currentGuess[i];
 
         for (j = 0; j < 5; j++) {
@@ -359,6 +351,13 @@ function updateRowStatus(currentGuess, rightGuessString, rowStatus){
         }
     }
     console.log(rowStatus)
+
+    for (let i = 0; i < 5; i++) {
+        if (currentGuess[i] == rightGuessString[i]){
+            rowStatus[i] = 3;
+            usedStatus[i] = true;
+        }
+    }
 }
 
 function linearSearch(arr, target){
