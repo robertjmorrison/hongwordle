@@ -332,17 +332,32 @@ function updateKeyStatus(currentGuess, rightGuessString, keyboardStatus){
 } 
 
 function updateRowStatus(currentGuess, rightGuessString, rowStatus){
+    
+    let usedStatus = [false, false, false, false, false]
 
-    for (let i = 0; i < currentGuess.length; i++) { 
-        if (currentGuess[i] == rightGuessString[i]) {
-            rowStatus[i] = 3
-        } else if (linearSearch(rightGuessString,currentGuess[i]) != -1){
-            rowStatus[i] = 2
-        } else {
-            rowStatus[i] = 1
+    for (let i = 0; i < 5; i++) {
+        if (currentGuess[i] == rightGuessString[i]){
+            rowStatus[i] = 3;
+            usedStatus[i] = true;
         }
-
     }
+    
+
+    for (let i = 0; i < 5; i++) {
+        var c = currentGuess[i];
+
+        for (j = 0; j < 5; j++) {
+            if (usedStatus[j] == false && c == rightGuessString[j]) {
+                usedStatus[j] = true;
+                rowStatus[i] = 2;
+                break;
+            }
+        }
+        if (rowStatus[i] == 0) {
+            rowStatus[i] = 1;
+        }
+    }
+    console.log(rowStatus)
 }
 
 function linearSearch(arr, target){
