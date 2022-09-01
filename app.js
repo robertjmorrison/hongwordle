@@ -140,7 +140,9 @@ function virtualKeyInput(virtualKeyInput){
         deleteLetter();
         return
     } else{
-        insertLetter(virtualKeyInput)
+        if (virtualKeyInput != "Delete") {
+            insertLetter(virtualKeyInput)
+        }  
     }
 } 
 
